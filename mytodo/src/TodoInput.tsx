@@ -15,7 +15,15 @@ export const TodoInput: React.FC<Props> = ({ onClick }) => {
           setValue(e.target.value);
         }}
       ></input>
-      <button onClick={() => onClick(value)}>add todo</button>
+      <button
+        disabled={value === ""}
+        onClick={() => {
+          onClick(value);
+          setValue("");
+        }}
+      >
+        add todo
+      </button>
     </>
   );
 };

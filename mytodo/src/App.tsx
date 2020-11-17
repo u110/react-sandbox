@@ -5,19 +5,20 @@ import { TodoItem } from "./TodoItem";
 
 export type Todo = {
   title: string;
+  done: boolean;
 };
 
 export const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([
-    { title: "reactペアプロ" },
-    { title: "リリース確認" },
+    { title: "reactペアプロ", done: false },
+    { title: "リリース確認", done: true },
   ]);
   return (
     <>
       <div>my todo</div>
       <TodoInput
         onClick={(v) => {
-          setTodos([...todos, { title: v }]);
+          setTodos([...todos, { title: v, done: false }]);
         }}
       ></TodoInput>
       {todos.map((todo, i) => {
@@ -25,7 +26,17 @@ export const App: React.FC = () => {
           <TodoItem
             todo={todo}
             key={i}
-            remove={() => {
+            toggleItem={() => {
+              setTodos(
+                todos.map((td, j) => {
+                  if (i === j) {
+                    return { title: td.title, done: !td.done };
+                  }
+                  return td;
+                })
+              );
+            }}
+            removeItem={() => {
               setTodos(todos.filter((_, j) => i !== j));
             }}
           ></TodoItem>

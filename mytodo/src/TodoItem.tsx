@@ -1,15 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
+import { isLineBreak } from "../node_modules/typescript/lib/typescript";
 import { Todo } from "./App";
 
 type Props = {
   todo: Todo;
-  remove: () => void;
+  removeItem: () => void;
+  toggleItem: () => void;
 };
-export const TodoItem: React.FC<Props> = ({ todo, remove }) => {
+export const TodoItem: React.FC<Props> = ({ todo, removeItem, toggleItem }) => {
   return (
     <div>
-      <span>{todo.title}</span>
-      <button onClick={() => remove()}>remove</button>
+      <input
+        type="checkbox"
+        checked={todo.done}
+        onChange={() => toggleItem()}
+      ></input>
+      <span style={{ textDecorationLine: todo.done ? "line-through" : "none" }}>
+        {todo.title}
+      </span>
+      <button onClick={() => removeItem()}>remove</button>
     </div>
   );
 };
