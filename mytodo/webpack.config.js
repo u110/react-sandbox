@@ -5,5 +5,12 @@ module.exports = {
     output: {
       path: path.resolve(__dirname, "dst"),
       filename: "bundle.js",
+    },
+    devServer: {
+        contentBase: path.resolve(__dirname, "dst"),
+    },
+    resolve:  {
+        modules: ["node_modules", path.resolve(__dirname, "src")],
+        extensions: [".js", ".json", ".jsx", ".css"],
     }
 };
